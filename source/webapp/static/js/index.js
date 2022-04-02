@@ -1,5 +1,5 @@
-async function make_request(url, context) {
-    let response = await fetch(url, context);
+async function make_request(url, method = 'GET') {
+    let response = await fetch(url, {method})
     if (response.ok) {
         console.log('OK')
         return await response.json();
@@ -7,37 +7,28 @@ async function make_request(url, context) {
         console.log('Not Successful')
         let error = new Error(response.statusText);
         error.response = response;
-        error_res = await response.json()
-        console.log(error_res.error)
-        return error_res;
+        throw error;
     }
 
 }
 
+let Favourite = async function (event) {
 
-let get_csrf_token = async function(){
-    let url = "api/get-csrf-token/"
-    let request_csrf_token = await make_request(url, {method: "GET"} );
-    console.log(request_csrf_token)
+    let url = event.target.dataset.articlesUrl;
 
-}
+    let data = await make_request(url)
+     console.log()
+    let counter = document.getElementById(`${event.target.dataset.id}`);
+    counter.innerText = `${data.like_quantity}`
+    let like_button = document.getElementById('favourite')
+    let button = event.target
 
+    if (button.innerText == "favourite") {
+        button.innerText = "favourite"
 
- function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        let cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            let cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
+    } else {
+        button.innerText = "notfavourite"
     }
-    return cookieValue;
+
 }
 
-get_csrf_token();
-let csrf_token = getCookie('csrftoken');
