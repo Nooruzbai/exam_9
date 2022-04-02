@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
@@ -66,23 +67,27 @@ class GalleryCreateView(CreateView):
         return reverse('webapp:gallery_detail_view', kwargs={"pk": self.object.pk})
 
 
-class GalleryDeleteView(DeleteView):
+class GalleryDeleteView(PermissionRequiredMixin, DeleteView):
     model = Gallery
     template_name = "gallery/delete_gallery.html"
     context_object_name = 'gallery'
-    # permission_required = "otzovik.delete_product"
+    permission_required = "webapp.delete_gallery"
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
 
     def get_success_url(self):
         return reverse('webapp:gallery_delete_view', kwargs={"pk": self.object.pk})
 
-#
-#
-# # PermissionRequiredMixin
-class GalleryUpdateView(UpdateView):
+
+class GalleryUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = GalleryUpdateForm
     template_name = "gallery/gallery_update.html"
     model = Gallery
-    # permission_required = "otzovik.change_product"
+    permission_required = "webapp.change_gallery"
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
 
     def get_success_url(self):
         return reverse('webapp:gallery_detail_view', kwargs={'pk': self.object.pk})

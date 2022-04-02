@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
@@ -9,7 +10,7 @@ from webapp.models import Image
 User = get_user_model()
 
 
-class ImagesListView(ListView):
+class ImagesListView(LoginRequiredMixin, ListView):
     template_name = 'images/images_list_view.html'
     model = Image
     context_object_name = "images"
@@ -58,23 +59,27 @@ class ImageDetailView(DetailView):
     #     return context
 
 
-class ImageDeleteView(DeleteView):
+class ImageDeleteView(PermissionRequiredMixin, DeleteView):
     model = Image
     template_name = "images/delete_image.html"
     context_object_name = 'image'
-    # permission_required = "otzovik.delete_product"
+    permission_required = "webapp.delete_image"
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
 
     def get_success_url(self):
         return reverse('webapp:images_list_view')
 
 
-
-# PermissionRequiredMixin
-class ImageUpdateView(UpdateView):
+class ImageUpdateView(PermissionRequiredMixin, UpdateView):
     form_class = ImageUpdateForm
     template_name = "images/update_image.html"
     model = Image
-    # permission_required = "otzovik.change_product"
+    permission_required = "webapp.change_image"
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
 
     def get_success_url(self):
         return reverse('webapp:image_detail_view', kwargs={'pk': self.object.pk})
