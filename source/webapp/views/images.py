@@ -26,9 +26,8 @@ class ImageCreateView(CreateView):
     # permission_required = 'otzovik.add_product'
 
     def form_valid(self, form):
-        image = form.save(commit=False)
-        image.author.add(self.request.user)
-        image.save()
+        form.instance.author = self.request.user
+        form.save()
         return super().form_valid(form)
 
     # def get_photo_form(self):
@@ -39,7 +38,7 @@ class ImageCreateView(CreateView):
     #     return Image(**form_kwargs)
 
     def get_success_url(self):
-        return reverse('webapp:images_list_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:images_list_view')
 
 
 class ImageDetailView(DetailView):

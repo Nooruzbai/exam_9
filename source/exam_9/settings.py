@@ -118,8 +118,8 @@ USE_I18N = True
 USE_TZ = True
 
 # Put your route to '________'
-LOGOUT_REDIRECT_URL = 'webapp:list_view'
-LOGIN_REDIRECT_URL = 'webapp:list_view'
+LOGOUT_REDIRECT_URL = 'webapp:images_list_view'
+LOGIN_REDIRECT_URL = 'webapp:images_list_view'
 
 
 LOGIN_URL = 'accounts:login'

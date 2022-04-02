@@ -7,9 +7,14 @@
     {#    </div>#}
     {##}
     {#        {% if user.is_authenticated and perms.otzovik.add_product %}#}
-        <div class="p-3">
-            <a class="btn btn-primary btn-lg" href="{% url "webapp:image_create_view" %}">Create new</a>
-        </div>
+    <div class="p-3">
+        <a class="btn btn-primary btn-lg" href="{% url "webapp:image_create_view" %}">Create new Image</a>
+
+    </div>
+
+    <div class="p-3">
+        <a class="btn btn-primary btn-lg" href="{% url "webapp:gallery_create_view" %}">Create New Gallery</a>
+    </div>
     {#        {% endif %}#}
     {##}
     {#    <div class="p-3">#}
@@ -52,27 +57,25 @@
                 <td>{{ image.author }}</td>
 
 
-
                 <td><a href="{% url "webapp:gallery_detail_view" image.gallery.pk %}"> {{ image.gallery.name }}</a></td>
                 <td>{{ image.date_created }}</td>
                 <td><a class="btn btn-primary btn-sm ps-3 pe-3"
                        href="{% url "webapp:image_detail_view" image.pk %}"><i
                         class="fas fa-info"></i></a></td>
 
-{##}
-{#                {% if user.is_authenticated and perms.otzovik.delete_product %}#}
-                    <td><a class="btn btn-primary btn-sm ps-3 pe-3"
-                           href="{% url "webapp:image_delete_view" image.pk %}"><i
-                            class="fas fa-trash-alt"></i></a></td>
-{#                {% endif %}#}
+                {##}
+                {#                {% if user.is_authenticated and perms.otzovik.delete_product %}#}
+                <td><a class="btn btn-primary btn-sm ps-3 pe-3"
+                       href="{% url "webapp:image_delete_view" image.pk %}"><i
+                        class="fas fa-trash-alt"></i></a></td>
+                {#                {% endif %}#}
 
 
-
-{#                {% if user.is_authenticated and perms.otzovik.change_product %}#}
-                    <td><a class="btn btn-primary btn-sm ps-3 pe-3"
-                           href="{% url "webapp:image_update_view" image.pk %}"><i
-                            class="far fa-edit"></i></a></td>
-{#                {% endif %}#}
+                {#                {% if user.is_authenticated and perms.otzovik.change_product %}#}
+                <td><a class="btn btn-primary btn-sm ps-3 pe-3"
+                       href="{% url "webapp:image_update_view" image.pk %}"><i
+                        class="far fa-edit"></i></a></td>
+                {#                {% endif %}#}
 
 
                 {#                <td><a class="btn btn-primary btn-sm ps-3 pe-3" href="{% url "cart_add_view" product.pk %}"><i#}
