@@ -67,8 +67,9 @@
                 <td>{{ image.sign }}</td>
                 <td>{{ image.author }}</td>
 
-
-                <td><a href="{% url "webapp:gallery_detail_view" image.gallery.pk %}"> {{ image.gallery.name }}</a></td>
+                {% if image.gallery %}
+                <td><a href="{% url 'webapp:gallery_detail_view' image.gallery.pk %}"> {{ image.gallery.name }}</a></td>
+                {% endif %}
                 <td>{{ image.date_created }}</td>
                 <td><a class="btn btn-primary btn-sm ps-3 pe-3"
                        href="{% url "webapp:image_detail_view" image.pk %}"><i
@@ -86,20 +87,23 @@
                 <td><a class="btn btn-primary btn-sm ps-3 pe-3"
                        href="{% url "webapp:image_update_view" image.pk %}"><i
                         class="far fa-edit"></i></a></td>
+
+
                 {#                {% endif %}#}
 
+                {% if request.user not in image.favourite.all %}
 
-                {#                <td><a class="btn btn-primary btn-sm ps-3 pe-3" href="{% url "cart_add_view" product.pk %}"><i#}
-                {#                        class="fas fa-shopping-cart"></i></a></td>#}
-                {#                <form action="{% url 'cart_add_view' product.pk %}" method="POST">#}
-                {#                    {% csrf_token %}#}
-                {#                    <td>#}
-                {#                        <button type="submit">Add</button>#}
-                {#                    </td>#}
-                {#                </form>#}
+                   <td><button class="btn btn-primary" id="favourite" onclick="Favourite(event)" data-id="{{ image.id }}"
+                            data-image-url="{% url "api:image" image.pk %}">favourite
+                    </button></td>
+                {% else %}
 
-
+                    <td><button class="btn btn-primary" id="favourite" onclick="Favourite(event)" data-id="{{ image.id }}"
+                            data-image-url="{% url "api:image" image.pk %}">notfavourite
+                    </button></td>
+                {% endif %}
             </tr>
+
         {% endfor %}
     </table>
 

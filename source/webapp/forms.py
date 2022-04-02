@@ -8,9 +8,13 @@ User = get_user_model()
 
 
 class ImageCreateForm(forms.ModelForm):
+    def __init__(self, request, *args, **kwargs):
+        super(ImageCreateForm, self).__init__(*args, **kwargs)
+        self.fields['gallery'].queryset = Gallery.objects.filter(author=request.user)
+
     class Meta:
         model = Image
-        exclude = ['author']
+        exclude = ('author', 'favourite','token', 'users')
         error_messages = {}
         widgets = {
             'date_started': forms.DateInput(format='%d-%m-%Y',
@@ -23,7 +27,6 @@ class ImageCreateForm(forms.ModelForm):
 
 
 class ImageUpdateForm(forms.ModelForm):
-
     class Meta:
         model = Image
         exclude = ('author',)
@@ -35,14 +38,13 @@ class ImageUpdateForm(forms.ModelForm):
 
 
 class GalleryCreateForm(forms.ModelForm):
+
     class Meta:
         model = Gallery
-        exclude = ('author',)
+        exclude = ('author', 'favourite',)
 
 
 class GalleryUpdateForm(forms.ModelForm):
     class Meta:
         model = Gallery
         exclude = ('author',)
-
-

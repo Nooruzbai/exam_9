@@ -27,6 +27,11 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
     template_name = 'images/image_create.html'
     form_class = ImageCreateForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.save()

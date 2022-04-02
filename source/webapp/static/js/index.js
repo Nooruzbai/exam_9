@@ -13,21 +13,20 @@ async function make_request(url, method = 'GET') {
 }
 
 let Favourite = async function (event) {
+    console.log(event.target)
 
-    let url = event.target.dataset.articlesUrl;
+    let url = event.target.dataset.imageUrl;
+    console.log(url)
 
     let data = await make_request(url)
-     console.log()
-    let counter = document.getElementById(`${event.target.dataset.id}`);
-    counter.innerText = `${data.like_quantity}`
-    let like_button = document.getElementById('favourite')
+    //  console.log()
     let button = event.target
 
     if (button.innerText == "favourite") {
-        button.innerText = "favourite"
+        button.innerText = "notfavourite"
 
     } else {
-        button.innerText = "notfavourite"
+        button.innerText = "favourite"
     }
 
 }
