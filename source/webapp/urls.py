@@ -1,7 +1,9 @@
 from django.urls import path
 
+from webapp.views.images import ImagesListView
+
 app_name = 'webapp'
 
-# urlpatterns = [
-#     path("", ProductsListView.as_view(), name="products_list_view"),
-# ]
+urlpatterns = [
+    path("", ImagesListView.as_view(), name="images_list_view"),
+]

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {#    <div type="button" class="p-2">#}
+    {#        <a href="{% url "accounts:registration" %}" class="btn btn-primary">Register</a>#}
+    {#    </div>#}
+    {##}
+    {#        {% if user.is_authenticated and perms.otzovik.add_product %}#}
+    {#    <div class="p-3">#}
+    {#        <a class="btn btn-primary btn-lg" href="{% url "otzovik:product_create_view" %}">Create new</a>#}
+    {#    </div>#}
+    {#        {% endif %}#}
+    {##}
+    {#    <div class="p-3">#}
+    {#        <a class="btn btn-primary btn-lg" href="{% url "otzovik:review_update_view" review.pk %}">Cart</a>#}
+    {#    </div>#}
+
+
+    {#    <div class="search">#}
+    {#        {% include 'partial/search_form.html' %}#}
+    {#    </div>#}
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Image</th>
+            <th scope="col">Sign</th>
+            <th scope="col">Author</th>
+            <th scope="col">Gallery</th>
+            <th scope="col">Date Created</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for image in images %}
+            <tr>
+                <th scope="row">{{ image.pk }}</th>
+
+                {% if image.image %}
+                    <td><img class="image" src="{{ image.image.url }}" height="100" width="100" alt="Product Image">
+                    </td>
+                {% else %}
+                    <td><img class="image" height="100" width="100"
+                             src="https://pbs.twimg.com/profile_images/1354379504920256513/4Ox0Xqft_400x400.jpg"
+                             alt="Product Image"></td>
+
+                {% endif %}
+
+
+                <td>{{ image.sign }}</td>
+                <td>{{ image.author }}</td>
+                <td>{{ image.gallery }}</td>
+                <td>{{ image.date_created }}</td>
+
+
+{#                <td><a class="btn btn-primary btn-sm ps-3 pe-3"#}
+{#                       href="{% url "otzovik:product_detailed_view" product.pk %}"><i#}
+{#                        class="fas fa-info"></i></a></td>#}
+
+{##}
+{#                {% if user.is_authenticated and perms.otzovik.delete_product %}#}
+{#                    <td><a class="btn btn-primary btn-sm ps-3 pe-3"#}
+{#                           href="{% url "otzovik:product_delete_view" product.pk %}"><i#}
+{#                            class="fas fa-trash-alt"></i></a></td>#}
+{#                {% endif %}#}
+
+
+
+{#                {% if user.is_authenticated and perms.otzovik.change_product %}#}
+{#                    <td><a class="btn btn-primary btn-sm ps-3 pe-3"#}
+{#                           href="{% url "otzovik:product_update_view" product.pk %}"><i#}
+{#                            class="far fa-edit"></i></a></td>#}
+{#                {% endif %}#}
+
+
+                {#                <td><a class="btn btn-primary btn-sm ps-3 pe-3" href="{% url "cart_add_view" product.pk %}"><i#}
+                {#                        class="fas fa-shopping-cart"></i></a></td>#}
+                {#                <form action="{% url 'cart_add_view' product.pk %}" method="POST">#}
+                {#                    {% csrf_token %}#}
+                {#                    <td>#}
+                {#                        <button type="submit">Add</button>#}
+                {#                    </td>#}
+                {#                </form>#}
+
+
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if search %}&search={{ search }}{% endif %}">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if query %}&{{ search }}{% endif %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if search %}&search={{ search }}{% endif %}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if search %}&search={{ search }}{% endif %}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+
+{% endblock %}
