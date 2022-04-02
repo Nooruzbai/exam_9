@@ -7,12 +7,28 @@ from .models import Image, Gallery
 User = get_user_model()
 
 
-class ImageForm(forms.ModelForm):
+class ImageCreateForm(forms.ModelForm):
     class Meta:
         model = Image
-        fields = "__all__"
-        error_messages = {
-            "name": {
-                "required": "The field is required to be filled"
-            }
+        exclude = ['author']
+        error_messages = {}
+        widgets = {
+            'date_started': forms.DateInput(format='%d-%m-%Y',
+                                            attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                   'type': 'date'}),
+            'date_closed': forms.DateInput(format='%d-%m-%Y',
+                                           attrs={'class': 'form-control', 'placeholder': 'Select a date',
+                                                  'type': 'date'})
         }
+
+
+class ImageUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Image
+        exclude = ['author']
+        # error_messages = {
+        #     "name": {
+        #         "required": "The field is required to be filled"
+        #     }
+        # }

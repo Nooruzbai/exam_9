@@ -1,10 +1,12 @@
-from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import ListView, CreateView, DetailView, DeleteView
-
-from webapp.forms import ImageForm
+from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.contrib.auth import get_user_model
+from webapp.forms import ImageUpdateForm, ImageCreateForm
 from webapp.models import Image
+
+
+User = get_user_model()
 
 
 class ImagesListView(ListView):
@@ -20,8 +22,21 @@ class ImagesListView(ListView):
 class ImageCreateView(CreateView):
     model = Image
     template_name = 'images/image_create.html'
-    form_class = ImageForm
+    form_class = ImageCreateForm
     # permission_required = 'otzovik.add_product'
+
+    def form_valid(self, form):
+        image = form.save(commit=False)
+        image.author.add(self.request.user)
+        image.save()
+        return super().form_valid(form)
+
+    # def get_photo_form(self):
+    #     form_kwargs = {'instance': self.object.profile}
+    #     if self.request.method == 'POST':
+    #         form_kwargs['data'] = self.request.POST
+    #         form_kwargs['files'] = self.request.FILES
+    #     return Image(**form_kwargs)
 
     def get_success_url(self):
         return reverse('webapp:images_list_view', kwargs={'pk': self.object.pk})
@@ -52,3 +67,15 @@ class ImageDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('webapp:images_list_view')
+
+
+
+# PermissionRequiredMixin
+class ImageUpdateView(UpdateView):
+    form_class = ImageUpdateForm
+    template_name = "images/update_image.html"
+    model = Image
+    # permission_required = "otzovik.change_product"
+
+    def get_success_url(self):
+        return reverse('webapp:image_detail_view', kwargs={'pk': self.object.pk})
