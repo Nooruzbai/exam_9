@@ -26,7 +26,6 @@ class ImageCreateView(LoginRequiredMixin, CreateView):
     model = Image
     template_name = 'images/image_create.html'
     form_class = ImageCreateForm
-    # permission_required = 'otzovik.add_product'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -79,7 +78,6 @@ class ImageUpdateView(PermissionRequiredMixin, UpdateView):
         return reverse('webapp:image_detail_view', kwargs={'pk': self.object.pk})
 
 
-
 class TokenGeneratorView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
@@ -88,7 +86,17 @@ class TokenGeneratorView(LoginRequiredMixin, View):
         if not image.token:
             image.token = token
             image.save()
-            return redirect()
+            return redirect('webapp:image_detail_view', pk=kwargs.get('pk'))
+        return redirect('webapp:image_detail_view', pk=kwargs.get('pk'))
+
+
+class DetailViewUIIDView(View):
+    def get(self, request, *args, **kwargs):
+        image = Image.objects.get(token=kwargs['uiid_pk'])
+        return render(request, 'images/details_image.html', {'image': image})
+
+
+
 
 
 

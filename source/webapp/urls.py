@@ -2,7 +2,7 @@ from django.urls import path
 
 from webapp.views.gallery import GalleryDetailView, GalleryCreateView, GalleryDeleteView, GalleryUpdateView
 from webapp.views.images import ImagesListView, ImageCreateView, ImageDeleteView, ImageDetailView, ImageUpdateView, \
-    TokenGeneratorView
+    TokenGeneratorView, DetailViewUIIDView
 
 app_name = 'webapp'
 
@@ -16,5 +16,7 @@ urlpatterns = [
     path('gallery/create/', GalleryCreateView.as_view(), name='gallery_create_view'),
     path('gallery/delete/<int:pk>/', GalleryDeleteView.as_view(), name='gallery_delete_view'),
     path('gallery/update/<int:pk>', GalleryUpdateView.as_view(), name='gallery_update_view'),
-    path('image/token/<int:pk>/', TokenGeneratorView.as_view(), name='token_generator_view')
+    path('image/token/<int:pk>/', TokenGeneratorView.as_view(), name='token_generator_view'),
+    path('image/token/<uuid:uiid_pk>/detail/view/', DetailViewUIIDView.as_view(), name='image_detail_uuid_view'),
 ]
+# http://localhost:8000/webapp/image/ee629fcc-0a91-4b33-8f9f-7154e26fa6e3

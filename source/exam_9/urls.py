@@ -20,8 +20,6 @@ from django.urls import path, include
 
 from accounts.views import UserDetailView
 
-app_name = 'accounts'
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("webapp.urls")),
