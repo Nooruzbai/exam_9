@@ -25,7 +25,7 @@ urlpatterns = [
     path('', include("webapp.urls")),
     path('accounts/', include("accounts.urls")),
     path("profile/<int:pk>/", UserDetailView.as_view(), name="user_profile_view"),
-    # path('api/', include('api.urls')),
+    path('api/', include('api.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

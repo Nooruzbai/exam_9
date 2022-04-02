@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     # My installed apps
     'webapp',
     'accounts',
+    'api',
 ]
 
 MIDDLEWARE = [
