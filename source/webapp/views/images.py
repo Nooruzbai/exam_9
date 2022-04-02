@@ -1,6 +1,9 @@
+import uuid
+
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.views import View
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.contrib.auth import get_user_model
 from webapp.forms import ImageUpdateForm, ImageCreateForm
@@ -19,8 +22,7 @@ class ImagesListView(LoginRequiredMixin, ListView):
     ordering = ['date_created']
 
 
-# PermissionRequiredMixin
-class ImageCreateView(CreateView):
+class ImageCreateView(LoginRequiredMixin, CreateView):
     model = Image
     template_name = 'images/image_create.html'
     form_class = ImageCreateForm
@@ -30,13 +32,6 @@ class ImageCreateView(CreateView):
         form.instance.author = self.request.user
         form.save()
         return super().form_valid(form)
-
-    # def get_photo_form(self):
-    #     form_kwargs = {'instance': self.object.profile}
-    #     if self.request.method == 'POST':
-    #         form_kwargs['data'] = self.request.POST
-    #         form_kwargs['files'] = self.request.FILES
-    #     return Image(**form_kwargs)
 
     def get_success_url(self):
         return reverse('webapp:images_list_view')
@@ -49,8 +44,7 @@ class ImageDetailView(DetailView):
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
-    #     users = User.objects.all()
-    #
+    #     users = User.obje
     #     if self.request.user.groups.filter(name="moderators"):
     #         context['users'] = users
     #     if reviews.filter(author=self.request.user):
@@ -83,3 +77,19 @@ class ImageUpdateView(PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('webapp:image_detail_view', kwargs={'pk': self.object.pk})
+
+
+
+class TokenGeneratorView(LoginRequiredMixin, View):
+
+    def get(self, *args, **kwargs):
+        image = Image.objects.get(pk=kwargs.get('pk'))
+        token = uuid.uuid4()
+        if not image.token:
+            image.token = token
+            image.save()
+            return redirect()
+
+
+
+

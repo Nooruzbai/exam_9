@@ -3,6 +3,11 @@
 {% block content %}
 
 
+     <div class="p-3">
+        <a class="btn btn-primary btn-lg" href="{% url "webapp:token_generator_view" image.pk %}">Generate Token</a>
+
+    </div>
+
 
     <table class="table">
         <thead>
@@ -15,6 +20,7 @@
             <th scope="col">Date Created</th>
         </tr>
         </thead>
+
         <tbody>
         <tr>
             <th scope="row">{{ image.id }}</th>

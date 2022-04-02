@@ -13,6 +13,7 @@ class Image(models.Model):
     gallery = models.ForeignKey('webapp.Gallery', blank=True, on_delete=models.CASCADE, null=True, related_name="images")
     private = models.BooleanField(default=False, verbose_name="Private")
     favourite = models.ManyToManyField(User, related_name="images")
+    token = models.UUIDField(blank=True, null=True, verbose_name='token')
 
     def __str__(self):
         return f"{self.pk}. {self.author} {self.date_created}"
