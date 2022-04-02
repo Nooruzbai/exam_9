@@ -7,14 +7,25 @@
     {#    </div>#}
     {##}
     {#        {% if user.is_authenticated and perms.otzovik.add_product %}#}
-    <div class="p-3">
-        <a class="btn btn-primary btn-lg" href="{% url "webapp:image_create_view" %}">Create new Image</a>
+{#    <div class="p-3">#}
+{#        <a class="btn btn-primary btn-lg" href="{% url "webapp:image_create_view" %}">Create new Image</a>#}
+{##}
+{#    </div>#}
+{#    #}
 
-    </div>
+     <div class="p-3">
+            <a class="btn btn-primary btn-lg" href="{% url "webapp:image_create_view" %}">Create new Image</a>
 
+        </div>
     <div class="p-3">
         <a class="btn btn-primary btn-lg" href="{% url "webapp:gallery_create_view" %}">Create New Gallery</a>
     </div>
+
+{#    <li class="nav-item">#}
+{#     <p class="nav-link">Hello,<a#}
+{#            href="{% url 'accounts:user_detailed_view' user.id %}"> {{ user.username }}</a></p>#}
+{#    </li>#}
+
     {#        {% endif %}#}
     {##}
     {#    <div class="p-3">#}

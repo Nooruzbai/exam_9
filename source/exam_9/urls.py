@@ -18,10 +18,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from accounts.views import UserDetailView
+
+app_name = 'accounts'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("webapp.urls")),
     path('accounts/', include("accounts.urls")),
+    path("profile/<int:pk>/", UserDetailView.as_view(), name="user_profile_view"),
     # path('api/', include('api.urls')),
 ]
 
