@@ -37,11 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'rest_framework.authtoken',
+    'rest_framework',
 
     # My installed apps
     'webapp',
     'accounts',
-    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -117,8 +118,8 @@ USE_I18N = True
 USE_TZ = True
 
 # Put your route to '________'
-LOGOUT_REDIRECT_URL = 'webapp:_________'
-LOGIN_REDIRECT_URL = 'webapp:__________'
+LOGOUT_REDIRECT_URL = 'webapp:list_view'
+LOGIN_REDIRECT_URL = 'webapp:list_view'
 
 
 LOGIN_URL = 'accounts:login'
@@ -134,6 +135,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 MEDIA_ROOT = BASE_DIR.joinpath("uploads")
 MEDIA_URL = "media/"
+
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#     )
+# }
