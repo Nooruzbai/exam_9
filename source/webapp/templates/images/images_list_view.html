@@ -7,9 +7,9 @@
     {#    </div>#}
     {##}
     {#        {% if user.is_authenticated and perms.otzovik.add_product %}#}
-    {#    <div class="p-3">#}
-    {#        <a class="btn btn-primary btn-lg" href="{% url "otzovik:product_create_view" %}">Create new</a>#}
-    {#    </div>#}
+        <div class="p-3">
+            <a class="btn btn-primary btn-lg" href="{% url "webapp:image_create_view" %}">Create new</a>
+        </div>
     {#        {% endif %}#}
     {##}
     {#    <div class="p-3">#}
@@ -60,9 +60,9 @@
 
 {##}
 {#                {% if user.is_authenticated and perms.otzovik.delete_product %}#}
-{#                    <td><a class="btn btn-primary btn-sm ps-3 pe-3"#}
-{#                           href="{% url "otzovik:product_delete_view" product.pk %}"><i#}
-{#                            class="fas fa-trash-alt"></i></a></td>#}
+                    <td><a class="btn btn-primary btn-sm ps-3 pe-3"
+                           href="{% url "webapp:image_delete_view" image.pk %}"><i
+                            class="fas fa-trash-alt"></i></a></td>
 {#                {% endif %}#}
 
 
