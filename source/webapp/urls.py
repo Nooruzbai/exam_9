@@ -19,4 +19,3 @@ urlpatterns = [
     path('image/token/<int:pk>/', TokenGeneratorView.as_view(), name='token_generator_view'),
     path('image/token/<uuid:uiid_pk>/detail/view/', DetailViewUIIDView.as_view(), name='image_detail_uuid_view'),
 ]
-# http://localhost:8000/webapp/image/ee629fcc-0a91-4b33-8f9f-7154e26fa6e3

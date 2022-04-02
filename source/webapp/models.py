@@ -14,7 +14,7 @@ class Image(models.Model):
     private = models.BooleanField(default=False, verbose_name="Private")
     favourite = models.ManyToManyField(User, related_name="images")
     token = models.UUIDField(blank=True, null=True, verbose_name='token')
-    # users = models.ManyToManyField(User, related_name='comment_s')
+    users = models.ManyToManyField(User, related_name='image_favorite')
 
     def __str__(self):
         return f"{self.pk}. {self.author} {self.date_created}"
@@ -33,6 +33,7 @@ class Gallery(models.Model):
     private = models.BooleanField(default=False, verbose_name="Private")
     date_created = models.DateTimeField(auto_now_add=True, verbose_name="Date Created")
     favourite = models.ManyToManyField(User, related_name="Galleries")
+    users = models.ManyToManyField(User, related_name='gallery_favorite')
 
     def __str__(self):
         return f"{self.pk}. {self.name} {self.author} {self.date_created}"
