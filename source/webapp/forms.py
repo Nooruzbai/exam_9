@@ -26,9 +26,23 @@ class ImageUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Image
-        exclude = ['author']
+        exclude = ('author',)
         # error_messages = {
         #     "name": {
         #         "required": "The field is required to be filled"
         #     }
         # }
+
+
+class GalleryCreateForm(forms.ModelForm):
+    class Meta:
+        model = Gallery
+        exclude = ('author',)
+
+
+class GalleryUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Gallery
+        exclude = ('author',)
+
+

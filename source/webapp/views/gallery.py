@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
 from django.contrib.auth import get_user_model
-from webapp.forms import ImageUpdateForm, ImageCreateForm
+from webapp.forms import ImageUpdateForm, ImageCreateForm, GalleryCreateForm, GalleryUpdateForm
 from webapp.models import Image, Gallery
 
 User = get_user_model()
@@ -50,38 +50,40 @@ class GalleryDetailView(DetailView):
         return context
 
 
-# class GalleryImageCreateView(CreateView):
-#     model = Gallery
-#     template_name = 'gallery/product_review_create.html'
-#     form_class = ProductReviewForm
-#
-#     def form_valid(self, form):
-#         product = get_object_or_404(Product, pk=self.kwargs.get('pk'))
-#         form.instance.product = product
-#         form.instance.author = self.request.user
-#         form.save()
-#         return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return reverse('otzovik:product_detailed_view', kwargs={"pk": self.object.product.pk})
+class GalleryCreateView(CreateView):
+    model = Gallery
+    template_name = 'gallery/gallery_create_view.html'
+    form_class = GalleryCreateForm
 
-# class ImageDeleteView(DeleteView):
-#     model = Image
-#     template_name = "images/delete_image.html"
-#     context_object_name = 'image'
-#     # permission_required = "otzovik.delete_product"
-#
-#     def get_success_url(self):
-#         return reverse('webapp:images_list_view')
-#
+    def form_valid(self, form):
+        # product = get_object_or_404(Gallery, pk=self.kwargs.get('pk'))
+        # form.instance.product = product
+        form.instance.author = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('webapp:gallery_detail_view', kwargs={"pk": self.object.pk})
+
+
+class GalleryDeleteView(DeleteView):
+    model = Gallery
+    template_name = "gallery/delete_gallery.html"
+    context_object_name = 'gallery'
+    # permission_required = "otzovik.delete_product"
+
+    def get_success_url(self):
+        return reverse('webapp:gallery_delete_view', kwargs={"pk": self.object.pk})
+
 #
 #
 # # PermissionRequiredMixin
-# class ImageUpdateView(UpdateView):
-#     form_class = ImageUpdateForm
-#     template_name = "images/update_image.html"
-#     model = Image
-#     # permission_required = "otzovik.change_product"
-#
-#     def get_success_url(self):
-#         return reverse('webapp:image_detail_view', kwargs={'pk': self.object.pk})
+class GalleryUpdateView(UpdateView):
+    form_class = GalleryUpdateForm
+    template_name = "gallery/gallery_update.html"
+    model = Gallery
+    # permission_required = "otzovik.change_product"
+
+    def get_success_url(self):
+        return reverse('webapp:gallery_detail_view', kwargs={'pk': self.object.pk})
+
