@@ -1,0 +1,132 @@
+[
+{
+  "model": "webapp.image",
+  "pk": 1,
+  "fields": {
+    "image": "images/better-smartphone-photos.webp",
+    "sign": "LikeAlot",
+    "date_created": "2022-04-02T06:19:11.363Z",
+    "author": 1,
+    "gallery": 1,
+    "private": false,
+    "token": "ee629fcc-0a91-4b33-8f9f-7154e26fa6e3",
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.image",
+  "pk": 2,
+  "fields": {
+    "image": "images/images.jpeg",
+    "sign": "Champ",
+    "date_created": "2022-04-02T06:19:25.804Z",
+    "author": 1,
+    "gallery": 1,
+    "private": false,
+    "token": "d0611093-44a1-4369-9978-0578346ce063",
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.image",
+  "pk": 3,
+  "fields": {
+    "image": "images/better-smartphone-photos_BhGPBW5.webp",
+    "sign": "Jem",
+    "date_created": "2022-04-02T08:58:19.981Z",
+    "author": 1,
+    "gallery": 1,
+    "private": false,
+    "token": null,
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.image",
+  "pk": 4,
+  "fields": {
+    "image": "images/better-smartphone-photos_o7gtLRu.webp",
+    "sign": "sdgadsgasd",
+    "date_created": "2022-04-02T08:59:09.484Z",
+    "author": 1,
+    "gallery": 1,
+    "private": false,
+    "token": null,
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.image",
+  "pk": 5,
+  "fields": {
+    "image": "images/images_SEblI50.jpeg",
+    "sign": "wefawe rawe",
+    "date_created": "2022-04-02T09:00:09.021Z",
+    "author": 1,
+    "gallery": 1,
+    "private": false,
+    "token": null,
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.gallery",
+  "pk": 1,
+  "fields": {
+    "name": "My Photos",
+    "description": "My Favourite Photos",
+    "author": 1,
+    "private": false,
+    "date_created": "2022-04-02T05:45:59.293Z",
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.gallery",
+  "pk": 2,
+  "fields": {
+    "name": "My New Gallery",
+    "description": "My New Gallery",
+    "author": 1,
+    "private": false,
+    "date_created": "2022-04-02T09:00:33.732Z",
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.gallery",
+  "pk": 3,
+  "fields": {
+    "name": "dsfasdfa",
+    "description": "asdfadsfasd",
+    "author": 1,
+    "private": false,
+    "date_created": "2022-04-02T09:01:06.541Z",
+    "favourite": [
+      1
+    ],
+    "users": []
+  }
+}
+]
